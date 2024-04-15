@@ -1,4 +1,5 @@
 import Navigation from './components/Navigation';
+import Container from 'react-bootstrap/Container';
 
 
 export default function App(){
@@ -15,9 +16,11 @@ export default function App(){
     return (
         <>
             <Navigation isLoggedIn={isLoggedIn}/>
-            <h1>Hello World</h1>
-            <h2>{isLoggedIn ? `Welcome Back ${firstName} ${lastName}` : 'Please Log In or Sign Up'}</h2>
-            {posts.map( p => <h4 key={p.id}>{p.title}</h4> )}
+            <Container>
+              <h1>Hello World</h1>
+              <h2>{isLoggedIn ? `Welcome Back ${firstName} ${lastName}` : 'Please Log In or Sign Up'}</h2>
+              {posts.map( p => <h4 key={p.id}>{p.title}</h4> )}
+            </Container>
         </>
     )
 }
