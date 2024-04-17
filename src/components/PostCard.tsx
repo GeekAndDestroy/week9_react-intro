@@ -9,6 +9,7 @@ export default function PostCard({ post }: PostCardProps) {
     console.log(post);
     return (
         <Card className='my-3' bg='primary' text='light'>
+            <Card.Header>{ post.dateCreated }</Card.Header>
             <Card.Body>
                 <Card.Title>{ post.title }</Card.Title>
                 <Card.Subtitle>{ post.author.username }</Card.Subtitle>
