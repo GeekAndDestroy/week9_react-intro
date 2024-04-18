@@ -3,13 +3,18 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { UserFormDataType } from '../types';
+import { CategoryType, UserFormDataType } from '../types';
 import { register } from '../lib/apiWrapper';
+import { useNavigate } from 'react-router-dom';
 
 
-type Props = {}
+type SignUpProps = {
+    flashMessage: (newMessage:string|undefined, newCategory:CategoryType|undefined) => void
+}
 
-export default function SignUp({}: Props) {
+export default function SignUp({ flashMessage }: SignUpProps) {
+    const navigate = useNavigate();
+
     const [userFormData, setUserFormData] = useState<UserFormDataType>(
         {
             firstName: '',
@@ -34,10 +39,12 @@ export default function SignUp({}: Props) {
 
         let response = await register(userFormData);
         if (response.error){
-            console.error(response.error);
+            flashMessage(response.error, 'danger');
         } else {
             let newUser = response.data!
-            console.log(`Congrats ${newUser.firstName} ${newUser.lastName} has been created with the username ${newUser.username}`)
+            flashMessage(`Congrats ${newUser.firstName} ${newUser.lastName} has been created with the username ${newUser.username}`, 'success')
+            navigate('/');
+
         }
         
     }
