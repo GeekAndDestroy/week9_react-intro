@@ -2,7 +2,8 @@ import axios from 'axios';
 import { PostFormDataType, PostType, TokenType, UserFormDataType, UserType } from '../types';
 
 
-const baseURL:string = 'https://kekambas-flask-blog-api.onrender.com'
+const baseURL:string = 'https://kekambas-142-flask-blog-api.onrender.com'
+// const baseURL:string = 'https://kekambas-flask-blog-api.onrender.com'
 const userEndpoint:string = '/users'
 const postEndpoint:string = '/posts'
 const tokenEndpoint:string = '/token'
@@ -113,6 +114,39 @@ async function createPost(token:string, postData:PostFormDataType): Promise<APIR
     return { data, error }
 }
 
+async function getPostById(postId:string|number): Promise<APIResponse<PostType>> {
+    let data;
+    let error;
+    try{
+        const response = await apiClientNoAuth().get(postEndpoint + '/' + postId)
+        data = response.data
+    } catch(err) {
+        if (axios.isAxiosError(err)){
+            error = err.response?.data?.error || `Post with ID ${postId} does not exist`
+        } else {
+            error = 'Something went wrong'
+        }
+    }
+    return { data, error }
+}
+
+async function editPostById(token:string, postId:string|number, postData:PostFormDataType): Promise<APIResponse<PostType>> {
+    let data;
+    let error;
+    try{
+        const response = await apiClientTokenAuth(token).put(postEndpoint + '/' + postId, postData)
+        data = response.data
+    } catch(err) {
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error || `Post with ID ${postId} does not exist`
+        } else {
+            error = 'Something went wrong'
+        }
+    }
+    return { data, error }
+}
+
+
 
 export {
     register,
@@ -120,4 +154,6 @@ export {
     login,
     getMe,
     createPost,
+    getPostById,
+    editPostById
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { PostType, UserType } from '../types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -16,7 +17,7 @@ export default function PostCard({ post, currentUser }: PostCardProps) {
                 <Card.Title>{ post.title }</Card.Title>
                 <Card.Subtitle>{ post.author.username }</Card.Subtitle>
                 <Card.Text>{ post.body }</Card.Text>
-                {post.author.id === currentUser?.id && <Button variant='primary'>Edit Post</Button>}
+                {post.author.id === currentUser?.id && <Link to={`/edit/${post.id}`}><Button variant='success'>Edit Post</Button></Link>}
             </Card.Body>
         </Card>
     )
