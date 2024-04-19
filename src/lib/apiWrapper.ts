@@ -146,6 +146,22 @@ async function editPostById(token:string, postId:string|number, postData:PostFor
     return { data, error }
 }
 
+async function deletePostById(token:string, postId:string|number): Promise<APIResponse<string>> {
+    let data;
+    let error;
+    try{
+        const response = await apiClientTokenAuth(token).delete(postEndpoint + '/' + postId)
+        data = response.data.success
+    } catch(err) {
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error || `Post with ID ${postId} does not exist`
+        } else {
+            error = 'Something went wrong'
+        }
+    }
+    return { data, error }
+}
+
 
 
 export {
@@ -155,5 +171,6 @@ export {
     getMe,
     createPost,
     getPostById,
-    editPostById
+    editPostById,
+    deletePostById
 }
