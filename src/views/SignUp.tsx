@@ -35,8 +35,6 @@ export default function SignUp({ flashMessage }: SignUpProps) {
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(userFormData);
-
         let response = await register(userFormData);
         if (response.error){
             flashMessage(response.error, 'danger');
@@ -44,13 +42,11 @@ export default function SignUp({ flashMessage }: SignUpProps) {
             let newUser = response.data!
             flashMessage(`Congrats ${newUser.firstName} ${newUser.lastName} has been created with the username ${newUser.username}`, 'success')
             navigate('/');
-
         }
-        
     }
 
-    const disableSubmit = userFormData.password.length < 5 || userFormData.password !== userFormData.confirmPassword
-    // const disableSubmit = !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*\!\?])(?=.*[a-zA-Z]).{8,16}$/.test(userFormData.password) || userFormData.password !== userFormData.confirmPassword
+    // const disableSubmit = userFormData.password.length < 5 || userFormData.password !== userFormData.confirmPassword
+    const disableSubmit = !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*\!\?])(?=.*[a-zA-Z]).{8,16}$/.test(userFormData.password) || userFormData.password !== userFormData.confirmPassword
 
     return (
         <>

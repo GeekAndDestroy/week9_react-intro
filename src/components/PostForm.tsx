@@ -1,20 +1,19 @@
-import { useState } from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import { PostFormDataType } from '../types'
-
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import { PostFormDataType } from '../types';
 
 type PostFormProps = {
     addNewPost: (data: PostFormDataType) => void
 }
 
 export default function PostForm({ addNewPost }: PostFormProps) {
-    const [newPost, setNewPost]= useState<PostFormDataType>({title:'', body:''});
+    const [newPost, setNewPost] = useState<PostFormDataType>({title: '', body: ''});
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.name, event.target.value);
-        setNewPost({...newPost, [event.target.name]:event.target.value })    
+        // console.log(event.target.name, event.target.value);
+        setNewPost({...newPost, [event.target.name]:event.target.value })
     }
 
     const handleFormSubmit = (event: React.FormEvent) => {

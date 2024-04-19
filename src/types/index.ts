@@ -1,6 +1,6 @@
 
 export type UserType = {
-    id:number, 
+    id:number,
     firstName:string,
     lastName:string,
     username:string,
@@ -16,7 +16,7 @@ export type PostType = {
     author:UserType
 }
 
-export type PostFormDataType ={
+export type PostFormDataType = {
     title:string,
     body:string
 }
@@ -36,4 +36,3 @@ export type TokenType = {
     token:string,
     tokenExpiration:string
 }
-
